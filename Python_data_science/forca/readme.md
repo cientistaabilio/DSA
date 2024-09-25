@@ -8,13 +8,13 @@ O objetivo é acertar a palavra antes que todas as tentativas sejam esgotadas.
 ## Funcionalidades
 Escolha aleatória de palavras: O jogo seleciona uma palavra aleatoriamente a partir de uma lista de palavras predefinida.
 
-Limpeza de tela: A tela é atualizada a cada tentativa, proporcionando uma interface mais limpa e dinâmica.
+**Limpeza de tela:** A tela é atualizada a cada tentativa, proporcionando uma interface mais limpa e dinâmica.
 
-Contagem de tentativas: O jogador tem 6 chances para adivinhar a palavra antes de perder o jogo.
+**Contagem de tentativas:** O jogador tem 6 chances para adivinhar a palavra antes de perder o jogo.
 
-Feedback visual: Exibição de letras corretas descobertas e letras incorretas já tentadas.
+**Feedback visual:** Exibição de letras corretas descobertas e letras incorretas já tentadas.
 
-Validação de entrada: Aceita apenas uma letra por vez e não permite a repetição de letras já sugeridas.
+**Validação de entrada:** Aceita apenas uma letra por vez e não permite a repetição de letras já sugeridas.
 
 Mensagens de vitória e derrota: Informa o jogador se ele acertou a palavra ou se esgotou as tentativas.
 
