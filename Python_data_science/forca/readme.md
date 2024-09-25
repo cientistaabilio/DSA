@@ -1,12 +1,21 @@
 # Jogo da Forca em Python
-Este projeto é uma implementação simples e divertida do clássico Jogo da Forca em Python. O jogo desafia os jogadores a adivinharem uma palavra oculta, sugerindo letras uma por uma. O objetivo é acertar a palavra antes que todas as tentativas sejam esgotadas.
+Este projeto é uma implementação simples e divertida do clássico Jogo da Forca em Python. 
+
+O jogo desafia os jogadores a adivinharem uma palavra oculta, sugerindo letras uma por uma. 
+
+O objetivo é acertar a palavra antes que todas as tentativas sejam esgotadas.
 
 ## Funcionalidades
 Escolha aleatória de palavras: O jogo seleciona uma palavra aleatoriamente a partir de uma lista de palavras predefinida.
+
 Limpeza de tela: A tela é atualizada a cada tentativa, proporcionando uma interface mais limpa e dinâmica.
+
 Contagem de tentativas: O jogador tem 6 chances para adivinhar a palavra antes de perder o jogo.
+
 Feedback visual: Exibição de letras corretas descobertas e letras incorretas já tentadas.
+
 Validação de entrada: Aceita apenas uma letra por vez e não permite a repetição de letras já sugeridas.
+
 Mensagens de vitória e derrota: Informa o jogador se ele acertou a palavra ou se esgotou as tentativas.
 
 ## Requisitos
@@ -28,7 +37,10 @@ Execute o jogo:
 python3 forca.py
 ```
 
-Siga as instruções na tela para começar a jogar. Você terá 6 chances para adivinhar a palavra. A cada tentativa, digite uma letra. Caso acerte, a letra será revelada na palavra oculta; caso erre, perderá uma chance.
+Siga as instruções na tela para começar a jogar. 
+
+Você terá 6 chances para adivinhar a palavra. A cada tentativa, digite uma letra. 
+Caso acerte, a letra será revelada na palavra oculta; caso erre, perderá uma chance.
 
 ## Melhorias futuras
 Adicionar a possibilidade de selecionar diferentes categorias de palavras.
