@@ -11,7 +11,82 @@ def limpa_tela():
     else:
         _ = system('clear')
 
-    def game():
+# Função para exibir o boneco da forca conforme as chances restantes
+def display_hangman(chances):
+    estagios = [
+        # Estágio 0: Boneco completo - sem mais chances
+        """
+           -----
+           |   |
+           O   |
+          /|\\  |
+          / \\  |
+               |
+        =========
+        """,
+        # Estágio 1: Sem uma perna
+        """
+           -----
+           |   |
+           O   |
+          /|\\  |
+          /    |
+               |
+        =========
+        """,
+        # Estágio 2: Sem pernas
+        """
+           -----
+           |   |
+           O   |
+          /|\\  |
+               |
+               |
+        =========
+        """,
+        # Estágio 3: Sem um braço
+        """
+           -----
+           |   |
+           O   |
+          /|   |
+               |
+               |
+        =========
+        """,
+        # Estágio 4: Só o corpo e a cabeça
+        """
+           -----
+           |   |
+           O   |
+           |   |
+               |
+               |
+        =========
+        """,
+        # Estágio 5: Só a cabeça
+        """
+           -----
+           |   |
+           O   |
+               |
+               |
+               |
+        =========
+        """,
+        # Estágio 6: Nenhuma parte do boneco foi desenhada ainda
+        """
+           -----
+           |   |
+               |
+               |
+               |
+               |
+        =========
+        """
+    ]
+    return estagios[chances]
+def game():
     
     limpa_tela()
     print("\nBem vindo(a) ao jogo da forca!")
@@ -35,6 +110,7 @@ def limpa_tela():
     while chances > 0:
         #limpa a tela a cada tentativa
         limpa_tela()
+        print(display_hangman(chances))
         print(" ".join(letras_descobertas))
         print("\nChances restantes", chances)
         print("Letras errada", " ".join(letras_erradas))
@@ -67,12 +143,14 @@ def limpa_tela():
         # Verifica se o jogador venceu
         if "_" not in letras_descobertas:
             limpa_tela()
+            print(display_hangman(chances))
             print("Você venceu, a palavra era ", palavra)
             break
 
     # Caso o jogador perca
     if "_" in letras_descobertas:
         limpa_tela()
+        print(display_hangman(chances))
         print("Você perdeu, a palavra era ", palavra)
 
 if __name__ == "__main__":
