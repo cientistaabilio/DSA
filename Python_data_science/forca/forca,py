@@ -1,120 +1,83 @@
-import random
-from os import system, name
+class Hangman():
+    # Função para exibir o boneco da forca conforme as chances restantes
+    def display_hangman(self, chances):
+        estagios = [
+            # Estágio 0: Boneco completo - sem mais chances
+            """
+               -----
+               |   |
+               O   |
+              /|\\  |
+              / \\  |
+                   |
+            =========
+            """,
+            # Estágio 1: Sem uma perna
+            """
+               -----
+               |   |
+               O   |
+              /|\\  |
+              /    |
+                   |
+            =========
+            """,
+            # Estágio 2: Sem pernas
+            """
+               -----
+               |   |
+               O   |
+              /|\\  |
+                   |
+                   |
+            =========
+            """,
+            # Estágio 3: Sem um braço
+            """
+               -----
+               |   |
+               O   |
+              /|   |
+                   |
+                   |
+            =========
+            """,
+            # Estágio 4: Só o corpo e a cabeça
+            """
+               -----
+               |   |
+               O   |
+               |   |
+                   |
+                   |
+            =========
+            """,
+            # Estágio 5: Só a cabeça
+            """
+               -----
+               |   |
+               O   |
+                   |
+                   |
+                   |
+            =========
+            """,
+            # Estágio 6: Nenhuma parte do boneco foi desenhada ainda
+            """
+               -----
+               |   |
+                   |
+                   |
+                   |
+                   |
+            =========
+            """
+        ]
+        return estagios[chances]
 
-# função para limpar a tela cada execução
-def limpa_tela():
-
-    # Windows
-    if name == 'nt':
-        _ = system('cls')
-    # Linux/Unix/MacOS
-    else:
-        _ = system('clear')
-
-# Função para exibir o boneco da forca conforme as chances restantes
-def display_hangman(chances):
-    estagios = [
-        # Estágio 0: Boneco completo - sem mais chances
-        """
-           -----
-           |   |
-           O   |
-          /|\\  |
-          / \\  |
-               |
-        =========
-        """,
-        # Estágio 1: Sem uma perna
-        """
-           -----
-           |   |
-           O   |
-          /|\\  |
-          /    |
-               |
-        =========
-        """,
-        # Estágio 2: Sem pernas
-        """
-           -----
-           |   |
-           O   |
-          /|\\  |
-               |
-               |
-        =========
-        """,
-        # Estágio 3: Sem um braço
-        """
-           -----
-           |   |
-           O   |
-          /|   |
-               |
-               |
-        =========
-        """,
-        # Estágio 4: Só o corpo e a cabeça
-        """
-           -----
-           |   |
-           O   |
-           |   |
-               |
-               |
-        =========
-        """,
-        # Estágio 5: Só a cabeça
-        """
-           -----
-           |   |
-           O   |
-               |
-               |
-               |
-        =========
-        """,
-        # Estágio 6: Nenhuma parte do boneco foi desenhada ainda
-        """
-           -----
-           |   |
-               |
-               |
-               |
-               |
-        =========
-        """
-    ]
-    return estagios[chances]
-def game():
+class Validation():
     
-    limpa_tela()
-    print("\nBem vindo(a) ao jogo da forca!")
-    print("Adivinhe a palavra abaixo:\n")
-    
-    # Lista de palavravas para o jogo
-    palavras = ['banana','abacate', 'uva', 'morango', 'laranja']
-    
-    # Escolhe randomicamente uma palavra
-    palavra = random.choice(palavras)
-    
-    # lista comprehension
-    letras_descobertas = ['_' for letra in palavra]
-    
-    # Numero de chances
-    chances = 6
-    
-    # Lista para as letras erradas
-    letras_erradas = []
-    
-    while chances > 0:
-        #limpa a tela a cada tentativa
-        limpa_tela()
-        print(display_hangman(chances))
-        print(" ".join(letras_descobertas))
-        print("\nChances restantes", chances)
-        print("Letras errada", " ".join(letras_erradas))
-
+    def validar_entrada(self, letras_descobertas, letras_erradas):
         # Entrada do jogador (tentativa)
         tentativa = input("\nDigite uma letra: ").lower()
         
@@ -122,37 +85,107 @@ def game():
         if not tentativa.isalpha() or len(tentativa) != 1:
             print("Por favor, insira apenas uma letra.")
             input("Pressione Enter para continuar.")
-            continue
+            return False, None
             
          # Verifica se a letra já foi tentada
         if tentativa in letras_descobertas or tentativa in letras_erradas:
             print("Você já tentou essa letra!")
             input("Pressione Enter para continuar.")
-            continue
-        
-        # Se a letra estiver na palavra
-        if tentativa in palavra:
-            for index, letra in enumerate(palavra):
-                if tentativa == letra:
-                    letras_descobertas[index] = letra
-        # Se a letra não estiver na palavra
+            return False, None
+        return True, tentativa
+
+class Utils():
+    def limpa_tela(self):
+        from os import system, name
+        # Windows
+        if name == 'nt':
+            _ = system('cls')
+        # Linux/Unix/MacOS
         else:
-            chances -= 1
-            letras_erradas.append(tentativa)
+            _ = system('clear')
+
+class Palavras():
+    def __init__(self):
+        # Lista de palavras para o jogo
+        self.listaPalavras = ['banana', 'abacate', 'uva', 'morango', 'laranja']
         
-        # Verifica se o jogador venceu
-        if "_" not in letras_descobertas:
-            limpa_tela()
-            print(display_hangman(chances))
-            print("Você venceu, a palavra era ", palavra)
-            break
+    def sortearPalavras(self):
+        import random
+        return random.choice(self.listaPalavras)
+        
+    def adicionarPalavras(self, palavra):
+        if not self.verificar_palavra_existente(palavra):
+            self.listaPalavras.append(palavra)
+        else:
+            print(f"A palavra '{palavra}' já está registrada.")
+   
+    def apagarPalavra(self, palavra):
+        if palavra in self.listaPalavras:
+            self.listaPalavras.remove(palavra)
+            print(f"A palavra '{palavra}' foi removida com sucesso.")
+        else:
+            print(f"A palavra '{palavra}' não está registrada.")
+   
+    def alterarPalavra(self, palavra_antiga, nova_palavra):
+        if palavra_antiga in self.listaPalavras:
+            if not self.verificar_palavra_existente(nova_palavra):
+                index = self.listaPalavras.index(palavra_antiga)
+                self.listaPalavras[index] = nova_palavra
+                print(f"A palavra '{palavra_antiga}' foi alterada para '{nova_palavra}'.")
+            else:
+                print(f"A nova palavra '{nova_palavra}' já está registrada.")
+        else:
+            print(f"A palavra '{palavra_antiga}' não está registrada.")
 
-    # Caso o jogador perca
-    if "_" in letras_descobertas:
-        limpa_tela()
-        print(display_hangman(chances))
-        print("Você perdeu, a palavra era ", palavra)
+    def verificar_palavra_existente(self, palavra):
+        return palavra in self.listaPalavras
+        
+    def verListaPalavras_Registradas(self):
+        # Ordena a lista em ordem alfabética
+        palavras_ordenadas = sorted(self.listaPalavras)
+        print("Palavras Registradas:")
+        for i, palavra in enumerate(palavras_ordenadas, start=1):  # Adiciona a numeração
+            print(f"{i}. {palavra}")
 
-if __name__ == "__main__":
-    game()
-    print("Jogo finalizado")
+class Palavras():
+    def __init__(self):
+        # Lista de palavras para o jogo
+        self.listaPalavras = ['banana', 'abacate', 'uva', 'morango', 'laranja']
+        
+    def sortearPalavras(self):
+        import random
+        return random.choice(self.listaPalavras)
+        
+    def adicionarPalavras(self, palavra):
+        if not self.verificar_palavra_existente(palavra):
+            self.listaPalavras.append(palavra)
+        else:
+            print(f"A palavra '{palavra}' já está registrada.")
+   
+    def apagarPalavra(self, palavra):
+        if palavra in self.listaPalavras:
+            self.listaPalavras.remove(palavra)
+            print(f"A palavra '{palavra}' foi removida com sucesso.")
+        else:
+            print(f"A palavra '{palavra}' não está registrada.")
+   
+    def alterarPalavra(self, palavra_antiga, nova_palavra):
+        if palavra_antiga in self.listaPalavras:
+            if not self.verificar_palavra_existente(nova_palavra):
+                index = self.listaPalavras.index(palavra_antiga)
+                self.listaPalavras[index] = nova_palavra
+                print(f"A palavra '{palavra_antiga}' foi alterada para '{nova_palavra}'.")
+            else:
+                print(f"A nova palavra '{nova_palavra}' já está registrada.")
+        else:
+            print(f"A palavra '{palavra_antiga}' não está registrada.")
+
+    def verificar_palavra_existente(self, palavra):
+        return palavra in self.listaPalavras
+        
+    def verListaPalavras_Registradas(self):
+        # Ordena a lista em ordem alfabética
+        palavras_ordenadas = sorted(self.listaPalavras)
+        print("Palavras Registradas:")
+        for i, palavra in enumerate(palavras_ordenadas, start=1):  # Adiciona a numeração
+            print(f"{i}. {palavra}")
