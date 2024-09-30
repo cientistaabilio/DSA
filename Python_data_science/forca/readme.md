@@ -40,6 +40,8 @@ cd Python_data_science/forca
 python3 forca.py
 ```
 
-```vbnet
-Sinta-se à vontade para fazer mais alterações ou me avisar se precisar de mais alguma coisa!
-```
+## Contribuições
+Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou enviar pull requests com melhorias, correções de bugs ou novas funcionalidades.
+
+# Licença
+Este projeto está licenciado sob a licença MIT. Consulte o arquivo LICENSE para mais detalhes.
